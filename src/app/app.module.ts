@@ -1,25 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatTableModule } from '@angular/material/table';
-import {MatSortModule} from '@angular/material/sort';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableSortingComponent } from './table-sorting/table-sorting.component';
-
+import { TableDefaultComponent } from './table-default/table-default.component';
+import { MaterialModule } from './material/material.module';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-    TableSortingComponent
+    TableSortingComponent,
+    TableDefaultComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatSlideToggleModule,
-    MatTableModule,
-    MatSortModule
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

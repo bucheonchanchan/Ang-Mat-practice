@@ -7,11 +7,15 @@ import { TableSortingComponent } from './table-sorting/table-sorting.component';
 import { TableDefaultComponent } from './table-default/table-default.component';
 import { MaterialModule } from './material/material.module';
 import { FormsModule } from '@angular/forms';
+import { AsyncAComponent } from './async-a/async.component';
+import { AsyncBComponent } from './async-b/async.component';
 @NgModule({
   declarations: [
     AppComponent,
     TableSortingComponent,
-    TableDefaultComponent
+    TableDefaultComponent,
+    AsyncAComponent,
+    AsyncBComponent
   ],
   imports: [
     FormsModule,

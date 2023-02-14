@@ -1,0 +1,85 @@
+<table
+  mat-table
+  [dataSource]="dataSource"
+  multiTemplateDataRows
+  class="mat-elevation-z8">
+
+  <ng-container
+    matColumnDef="{{ column.en }}"
+    *ngFor="let column of columnsToDisplay">
+    <!-- 실제 th -->
+    <th
+      class="header-cell"
+      mat-header-cell
+      *matHeaderCellDef
+      [attr.data]="column.en">{{ column.kr }}</th>
+    <!-- 실제 td -->
+    <td class="cell" mat-cell *matCellDef="let element">{{ element[column.en] }}</td>
+  </ng-container>
+
+  <!-- 추가 컬럼 -->
+  <ng-container matColumnDef="expand">
+    <th
+      class="expand-header-cell"
+      mat-header-cell
+      *matHeaderCellDef
+      aria-label="row actions">
+      &nbsp;
+    </th>
+    <td class="expand-cell" mat-cell *matCellDef="let element">
+      <button mat-icon-button aria-label="expand row">
+        <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+        <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <!-- expanded contents -->
+  <ng-container matColumnDef="expandedDetail">
+    <!-- let element는 ELEMENT_DATA 배열 안에 있는 원소 각각을 가르킨다. -->
+    <td
+      mat-cell
+      *matCellDef="let element"
+      [attr.colspan]="columnsToDisplayWithExpand.length">
+      <!-- [3] click 이벤트에 의해 expandedElement와 element가 같은 값을 가지게 되었다. -->
+      <!-- [4] element와 expandedElement의 값이 같아 @detailExpand에 expand 문자열이 할당되었다. -->
+      <div
+        class="example-element-detail"
+        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+        <div class="example-element-diagram">
+          <div class="example-element-position">{{ element.position }}</div>
+          <div class="example-element-symbol">{{ element.symbol }}</div>
+          <div class="example-element-name">{{ element.name }}</div>
+          <div class="example-element-weight">{{ element.weight }}</div>
+        </div>
+        <div class="example-element-description">
+          {{ element.description }}
+          <span class="example-element-description-attribution">-- Wikipedia</span>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <!-- table head -->
+  <tr
+    class="table-head-row"
+    mat-header-row
+    *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+  <!-- table row -->
+  <!-- [1] click 이벤트를 발생시켜 expandedElement변수에 ELEMENT_DATA 원소 중 하나(element)를 할당한다. -->
+  <!-- [2] 동시에 expandedElement === element 조건이 참이되어 example-expanded-row 클래스명이 tr 태그에 생성된다. -->
+  <tr
+    mat-row
+    *matRowDef="let element; columns: columnsToDisplayWithExpand"
+    class="example-element-row table-body-row"
+    [class.example-expanded-row]="expandedElement === element"
+    (click)="
+      expandedElement = expandedElement === element ? null : element;
+      expandAction(expandedElement, element)"></tr>
+  <!-- table row expanded -->
+  <tr
+    class="table-body-row-expanded"
+    mat-row
+    *matRowDef="let row; columns: ['expandedDetail']"
+    class="example-detail-row"></tr>
+</table>

@@ -46,7 +46,6 @@ export class TableSortingComponent {
   observable$ = of(newData).pipe(
     delay(1000)
   );
-  private refreshRequired = new Subject();  
   dataSource: any;
   emData: any;
 
